@@ -4,7 +4,7 @@ import withBreadcrumbs from 'react-router-breadcrumbs-hoc';
 
 const routes = [
     { path: '/', breadcrumb: '首页' },
-  ];
+];
   
 export default withBreadcrumbs(routes)(({ breadcrumbs }) => (
     <div style={{ padding: '15px 20px 5px'}}>
