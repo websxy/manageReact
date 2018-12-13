@@ -100,7 +100,7 @@ class layoutComponent extends React.Component {
                     <div className={styles.logo}>
                         <a href="/">
                             <img src={require('../assets/logo.png')} />
-                            <h1>天阳科技</h1>
+                            <h1>天阳科技111</h1>
                         </a>
                     </div>
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} selectedKeys={[this.getRouteKey()]} openKeys={[this.state.openKeys?this.state.openKeys:this.getOpenKeys()]} onSelect={this.nowSelect}>
