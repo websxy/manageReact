@@ -2,11 +2,14 @@ const routes = [{
 	path: '/login',
 },{
 	path: '/',
+	name:'首页',
 	component: './index',
 	routes: [{
-        path: '/',
-        redirect: '/environment'
-      },{
+		path: '/home',
+        name:'首页',
+		icon:'home',
+		component: './Home',
+	},{
 		path: '/environment',
 		name:'环境管理',
         icon:'area-chart',
@@ -25,9 +28,12 @@ const routes = [{
 		}]
 	},{
 		path: '/user',
-        name:'user',
+        name:'用户',
 		icon:'user',
-		component: './user/index',
+		component: './User',
+	},{
+		path: '/',
+        redirect: '/home'
 	}]
 }]
 module.exports = routes	

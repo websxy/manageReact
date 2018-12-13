@@ -1,11 +1,10 @@
 import React from 'react';
-import { Layout, Menu, Icon, Breadcrumb } from 'antd';
+import { Layout, Menu, Icon } from 'antd';
 import styles from './index.less';
 import routes from '../utils/routes';
 import Link from 'umi/link';
-import withRouter from 'umi/withRouter';
-import Authorized from '../utils/Authorized'
-import { getCurrentRoute } from '../utils/AuthRoutes'
+import CustomBreadcrumb from '../components/Breadcrumb'
+import { getCurrentRoute } from '../utils/AuthRoutes';
 
 const { Header, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -15,6 +14,7 @@ class layoutComponent extends React.Component {
         collapsed: false,
         openKeys:'',
         openDoubleKeys:'',
+        clickKey:'',
     };
 
     toggle=() => {
@@ -60,6 +60,7 @@ class layoutComponent extends React.Component {
     }
 
     nowSelect=({ item, key, selectedKeys })=>{   //当选择的是一级菜单的时候 关闭其他打开的submenu
+        this.state.clickKey = key;
         if(key.split('/').length>2)
             return
         this.clearSubMenu()   
@@ -71,7 +72,7 @@ class layoutComponent extends React.Component {
 
     getOpenKeys(){//第一次进来 根据地址栏 获取默认选中菜单
         let route = getCurrentRoute(routes,this.props.location.pathname)[0]//获取当前路由地址下的对应路由表的信息
-        return route?route.fatherKey:''
+        return route ? route.fatherKey : ''
     }
 
     openSubMenu=({ key, domEvent })=>{//当前打开的submenu 关闭其他展开的
@@ -91,6 +92,7 @@ class layoutComponent extends React.Component {
         }) 
     }
 
+    /* 当前路由 */
     render() {
         return (
             <Layout>
@@ -111,12 +113,9 @@ class layoutComponent extends React.Component {
                             <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}/>
                         </span>
                     </Header>
-                    <Breadcrumb style={{ padding: '15px 20px 5px'}}>
-                        <Breadcrumb.Item>User</Breadcrumb.Item>
-                        <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                    </Breadcrumb>
+                    <CustomBreadcrumb></CustomBreadcrumb>
                     <Content style={{ margin: '10px 16px', padding: 24, background: '#fff', minHeight: 280,}}>
-                        <Authorized authPath={this.props.location.pathname}>{this.props.children}</Authorized>
+                       {this.props.children}
                     </Content>
                 </Layout>
             </Layout>
