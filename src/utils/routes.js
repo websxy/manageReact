@@ -6,7 +6,7 @@ const routes = [{
 	component: './index',
 	routes: [{
 		path: '/home',
-        name:'首页',
+		name:'主页',
 		icon:'home',
 		component: './Home',
 	},{
@@ -28,12 +28,12 @@ const routes = [{
 		}]
 	},{
 		path: '/user',
-        name:'用户',
+		name:'用户',
 		icon:'user',
 		component: './User',
-	},{
-		path: '/',
-        redirect: '/home'
 	}]
+},{
+	path: '/',
+	redirect: '/home'
 }]
 module.exports = routes	

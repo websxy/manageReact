@@ -1,20 +1,40 @@
-import React from 'react';
-import NavLink from 'umi/navlink';
-import withBreadcrumbs from 'react-router-breadcrumbs-hoc';
+import React, { Component } from 'react';
+import Link from 'umi/link';
+import { Breadcrumb, Icon } from 'antd';
 
-const routes = [
-    { path: '/', breadcrumb: '首页' },
-];
-  
-export default withBreadcrumbs(routes)(({ breadcrumbs }) => (
-    <div style={{ padding: '15px 20px 5px'}}>
-      {breadcrumbs.map((breadcrumb, index) => (
-        <span key={breadcrumb.key}>
-          <NavLink to={ breadcrumb.props.match.url}>
-            {breadcrumb}
-          </NavLink>
-          {(index < breadcrumbs.length - 1) && <i> / </i>}
-        </span>
-      ))}
-    </div>
-  ));
+class CustomBreadcrumb extends Component{
+
+    state = {
+        routesArr:[],
+        activeRouter:'/environment/registration',
+      };
+
+    routesList =(menu) =>{
+        menu.map(item=>{
+            if(!item.routes && activeRouter.includes(item.path)){
+                routesArr.push(item);
+                return
+            }
+            if (activeRouter.includes(item.path)) {
+                routesArr.push(item)
+                this.routesList(item.routes)
+            }
+        })
+    }
+
+    render(){
+        return (
+            <Breadcrumb>
+              {this.state.routesArr.map(item=>{
+                <Breadcrumb.Item key={item.path}>
+                  <Link to={item.path}>
+                    {item.name}
+                  </Link>
+                </Breadcrumb.Item>
+              })}
+            </Breadcrumb>
+        )
+    }
+}
+
+export default CustomBreadcrumb

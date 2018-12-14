@@ -113,7 +113,7 @@ class layoutComponent extends React.Component {
                             <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}/>
                         </span>
                     </Header>
-                    <CustomBreadcrumb></CustomBreadcrumb>
+                    <CustomBreadcrumb routes={routes[1].routes} activeRouter={this.state.clickKey}></CustomBreadcrumb>
                     <Content style={{ margin: '10px 16px', padding: 24, background: '#fff', minHeight: 280,}}>
                        {this.props.children}
                     </Content>
