@@ -14,7 +14,7 @@ class layoutComponent extends React.Component {
         collapsed: false,
         openKeys:'',
         openDoubleKeys:'',
-        clickKey:'',
+        routesArr:[],
     };
 
     toggle=() => {
@@ -59,8 +59,8 @@ class layoutComponent extends React.Component {
         return vnode;
     }
 
-    nowSelect=({ item, key, selectedKeys })=>{   //当选择的是一级菜单的时候 关闭其他打开的submenu
-        this.state.clickKey = key;
+    nowSelect=({ item, key, selectedKeys })=>{ 
+        this.routesList(routes[1].routes,key);
         if(key.split('/').length>2)
             return
         this.clearSubMenu()   
@@ -92,6 +92,22 @@ class layoutComponent extends React.Component {
         }) 
     }
 
+    /* 获取点击路由的面包屑 */
+    routesList =(menu,activeRouter) =>{
+        let routesArr = this.state.routesArr;
+        menu.map(item=>{
+            console.log(item)
+            if( !item.routes && activeRouter.includes(item.path)){
+                routesArr.push(item);
+                return
+            }
+            if (activeRouter.includes(item.path)) {
+                routesArr.push(item)
+                this.routesList(item.routes,activeRouter)
+            }
+        })
+    }
+
     /* 当前路由 */
     render() {
         return (
@@ -113,7 +129,7 @@ class layoutComponent extends React.Component {
                             <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}/>
                         </span>
                     </Header>
-                    <CustomBreadcrumb routes={routes[1].routes} activeRouter={this.state.clickKey}></CustomBreadcrumb>
+                    <CustomBreadcrumb activeMenu={this.state.routesArr}></CustomBreadcrumb>
                     <Content style={{ margin: '10px 16px', padding: 24, background: '#fff', minHeight: 280,}}>
                        {this.props.children}
                     </Content>
