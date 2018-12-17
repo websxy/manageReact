@@ -4,6 +4,7 @@ import styles from './index.less';
 import routes from '../utils/routes';
 import Link from 'umi/link';
 import CustomBreadcrumb from '../components/Breadcrumb'
+import HeadRight from '../components/HeadRight'
 import { getCurrentRoute } from '../utils/AuthRoutes';
 
 const { Header, Sider, Content } = Layout;
@@ -59,11 +60,26 @@ class layoutComponent extends React.Component {
         return vnode;
     }
 
-    nowSelect=({ item, key, selectedKeys })=>{ 
-        this.routesList(routes[1].routes,key);
-        if(key.split('/').length>2)
-            return
+    nowSelect=({ item, key, selectedKeys })=>{
+        this.setState({routesArr: []}, () => this.routesList(routes[1].routes,key));
+        if(key.split('/').length>2) return
         this.clearSubMenu()   
+    }
+
+    /* 获取点击路由的面包屑 */
+    routesList =(menu,activeRouter) =>{
+        let routesArr = this.state.routesArr;
+        menu.forEach(item => {
+            if( !item.routes && activeRouter.includes(item.path)){
+                routesArr.push(item)
+                return
+            }
+            if (activeRouter.includes(item.path)) {
+                routesArr.push(item)
+                this.routesList(item.routes,activeRouter)
+            }
+        })
+        this.setState({routesArr});
     }
 
     getRouteKey(){//根据路径名称得到选中的菜单
@@ -92,22 +108,6 @@ class layoutComponent extends React.Component {
         }) 
     }
 
-    /* 获取点击路由的面包屑 */
-    routesList =(menu,activeRouter) =>{
-        let routesArr = this.state.routesArr;
-        menu.map(item=>{
-            console.log(item)
-            if( !item.routes && activeRouter.includes(item.path)){
-                routesArr.push(item);
-                return
-            }
-            if (activeRouter.includes(item.path)) {
-                routesArr.push(item)
-                this.routesList(item.routes,activeRouter)
-            }
-        })
-    }
-
     /* 当前路由 */
     render() {
         return (
@@ -119,7 +119,7 @@ class layoutComponent extends React.Component {
                             <h1>天阳科技</h1>
                         </a>
                     </div>
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} selectedKeys={[this.getRouteKey()]} openKeys={[this.state.openKeys?this.state.openKeys:this.getOpenKeys()]} onSelect={this.nowSelect}>
+                    <Menu theme="dark" mode="inline" inlineCollapsed={this.state.collapsed} defaultSelectedKeys={['1']} selectedKeys={[this.getRouteKey()]} openKeys={[this.state.openKeys?this.state.openKeys:this.getOpenKeys()]}  onSelect={this.nowSelect}>
                         {this.getMenu()}
                     </Menu>
                 </Sider>
@@ -128,6 +128,7 @@ class layoutComponent extends React.Component {
                         <span onClick={this.toggle} className={styles.toggle}>
                             <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}/>
                         </span>
+                        <HeadRight></HeadRight>
                     </Header>
                     <CustomBreadcrumb activeMenu={this.state.routesArr}></CustomBreadcrumb>
                     <Content style={{ margin: '10px 16px', padding: 24, background: '#fff', minHeight: 280,}}>

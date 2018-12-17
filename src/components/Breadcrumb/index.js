@@ -7,15 +7,15 @@ class CustomBreadcrumb extends Component{
         return (
             <Breadcrumb style={{padding:'10px 20px 5px'}}>
                 <Breadcrumb.Item>
-                    <Link to='/'>主页 </Link>
+                    <Link to='/'> 主页 </Link>
                 </Breadcrumb.Item>
-              {this.props.activeMenu.map(item=>{
-                <Breadcrumb.Item key={item.path}>
-                  <Link to={item.path}>
-                    {item.name}
-                  </Link>
-                </Breadcrumb.Item>
-              })}
+                {this.props.activeMenu.map(item => {
+                    return (
+                        <Breadcrumb.Item key={item.path}>
+                            {item.component ? <Link to={item.path} replace>{item.name}</Link> : <span>{item.name}</span>}
+                        </Breadcrumb.Item>
+                    )
+                })}
             </Breadcrumb>
         )
     }
