@@ -14,6 +14,13 @@ a:hover,a:active,a:link,a:visited {
   outline: none
 }
 
+.btns{
+  margin-bottom: 20px
+}
 .btns button{
   margin-left: 10px
+}
+
+.ant-input-affix-wrapper .ant-input-prefix, .ant-input-affix-wrapper .ant-input-suffix{
+  color: rgba(134, 125, 125, 0.65)
 }

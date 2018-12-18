@@ -9,7 +9,7 @@ axios.defaults.withCredentials = true;
 
 /* axios实例 */
 const service = axios.create({
-	baseURL: 'http://10.6.30.28:9080/dam_manage',
+	baseURL: 'http://localhost:9080/dam_manage',
 	timeout: 600000,
 	headers: {
 		'Content-Type': 'application/x-www-form-urlencoded'

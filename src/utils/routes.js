@@ -1,5 +1,6 @@
 const routes = [{
 	path: '/login',
+	component: './Login',
 },{
 	path: '/',
 	name:'首页',

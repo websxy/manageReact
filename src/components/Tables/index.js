@@ -31,10 +31,9 @@ const dataSource = [{
   class Tables extends Component{
 
     render(){
-        return (
-            <Table dataSource={dataSource} columns={columns} />
+      return (
+        <Table dataSource={dataSource} columns={columns} />
         )
     }
 }
-
 export default Tables

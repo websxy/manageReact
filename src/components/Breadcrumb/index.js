@@ -5,7 +5,7 @@ import { Breadcrumb, Icon } from 'antd';
 class CustomBreadcrumb extends Component{
     render(){
         return (
-            <Breadcrumb style={{padding:'10px 20px 5px'}}>
+            <Breadcrumb style={{padding:'15px 20px 8px'}}>
                 <Breadcrumb.Item>
                     <Link to='/'> 主页 </Link>
                 </Breadcrumb.Item>
