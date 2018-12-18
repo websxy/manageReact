@@ -3,23 +3,22 @@ export default {
     namespace:'user',
     state:{
         token:'',
-        username:'',
-        role:'user'
     },
     effects:{
         *login( {payload ,callback} , {call,put}){
-            const response = yield call(login);
+            const response = yield call(login(payload));
             yield put({
-                type:'login',
+                type:'setLogin',
                 payload:{...response}
             })
             callback()
         }
     },
     reducers:{
-        login(state,{payload}){
+        updateState(state,{payload}){
             return {
                 ...state,
+                ...payload,
             }
         }
     }

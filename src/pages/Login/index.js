@@ -1,5 +1,7 @@
 import React, { Component} from 'react'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import withRouter from 'umi/withRouter';
+import { connect } from 'dva';
 import routes from '@/utils/routes';
 import styles from './index.less';
 const FormItem = Form.Item;
@@ -60,4 +62,9 @@ class Login extends Component{
         );
     }
 }
-export default Form.create()(Login);
+ const mapStateToProps = (state)=>{
+    const { token } = state.user;
+    return {token}
+ }
+
+export default withRouter(connect(mapStateToProps)(Form.create()(Login)));
