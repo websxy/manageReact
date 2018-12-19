@@ -3,7 +3,9 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import withRouter from 'umi/withRouter';
 import { connect } from 'dva';
 import routes from '@/utils/routes';
+import router from 'umi/router';
 import styles from './index.less';
+import { setCookie } from '@/utils/cookie'
 const FormItem = Form.Item;
 
 class Login extends Component{
@@ -20,11 +22,12 @@ class Login extends Component{
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                window.g_app._store.dispatch({
+                this.setState({ loading: true });
+                this.props.dispatch({
                     type:'user/login',
                     payload:values
                 })
-                this.setState({ loading: true });
+                router.push('/home');
             }
         });
     }
@@ -62,9 +65,10 @@ class Login extends Component{
         );
     }
 }
- const mapStateToProps = (state)=>{
-    const { token } = state.user;
-    return {token}
+ const mapStateToProps = (state,ownProps )=>{
+     return{
+        token : state.user.crsf_token,
+     }
  }
 
 export default withRouter(connect(mapStateToProps)(Form.create()(Login)));

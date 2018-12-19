@@ -1,24 +1,27 @@
-import { login } from '../services/api'
+import { login } from '../services/api';
+import { setCookie } from '../utils/cookie'
 export default {
     namespace:'user',
     state:{
         token:'',
     },
     effects:{
-        *login( {payload ,callback} , {call,put}){
-            const response = yield call(login(payload));
+        *login( {payload} , {call,put}){
+            const response = yield call(login,payload);
             yield put({
-                type:'setLogin',
+                type:'updateState',
                 payload:{...response}
-            })
-            callback()
+            });
+            setCookie('user_name',payload.userName);
+            setCookie('crsf_token',response.data.crsf_token);
         }
     },
     reducers:{
         updateState(state,{payload}){
+            const response = payload.data;
             return {
                 ...state,
-                ...payload,
+                ...response,
             }
         }
     }

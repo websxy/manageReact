@@ -2,6 +2,7 @@ import { message } from 'antd';
 import axios from 'axios';
 import router from 'umi/router';
 import qs from 'qs';
+import { getCookie } from './cookie'
 
 
 axios.defaults.withCredentials = true;
@@ -12,14 +13,17 @@ const service = axios.create({
 	baseURL: 'http://localhost:9080/dam_manage',
 	timeout: 600000,
 	headers: {
-		'Content-Type': 'application/x-www-form-urlencoded'
+		'Content-Type': 'application/x-www-form-urlencoded',
+		'crsf_token': getCookie('crsf_token'),
 	}
 });
-
 
 /* axios请求拦截 */
 service.interceptors.request.use(
 	config => {
+		if(config.method === 'post'){
+			config.data = qs.stringify(config.data);
+		}
 		return config;
 	}, (err) => {
 		return Promise.reject(err);

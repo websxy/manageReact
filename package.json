@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "qs": "^6.6.0",
-    "react-router-breadcrumbs-hoc": "^2.1.5"
+    "qs": "^6.6.0"
   }
 }

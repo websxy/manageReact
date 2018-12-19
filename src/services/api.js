@@ -12,3 +12,8 @@ export async function login(params) {
 export async function licenseVerify() {
     return request('/license/verify.do')
 }
+
+/* 退出登录 */
+ export async function logout() {
+    return request('/dam/logout.do')
+ }
