@@ -18,12 +18,12 @@ class Login extends Component{
         this.setState({ loading: true });
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
+        this.props.form.validateFields(async (err, values) => {
             if (!err) {
                 this.setState({ loading: true });
-                this.props.dispatch({
+                await this.props.dispatch({
                     type:'user/login',
                     payload:values
                 })
