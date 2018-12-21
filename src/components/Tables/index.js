@@ -1,39 +1,66 @@
-import React, { Component } from 'react';
-import { Table } from 'antd';
+import React, { Component, Fragment } from 'react';
+import { Card, Table, Row, Pagination } from 'antd';
+import Search from '../Search/index';
+import Buttons from '../Buttons/index';
 import styles from './index.less';
-
-const dataSource = [{
-    key: '1',
-    name: '胡彦斌',
-    age: 32,
-    address: '西湖区湖底公园1号'
-  }, {
-    key: '2',
-    name: '胡彦祖',
-    age: 42,
-    address: '西湖区湖底公园1号'
-  }];
-  
-  const columns = [{
-    title: '姓名',
-    dataIndex: 'name',
-    key: 'name',
-  }, {
-    title: '年龄',
-    dataIndex: 'age',
-    key: 'age',
-  }, {
-    title: '住址',
-    dataIndex: 'address',
-    key: 'address',
-  }];   
-
-  class Tables extends Component{
-
-    render(){
-      return (
-        <Table dataSource={dataSource} columns={columns} />
-        )
+class Tables extends Component {
+      
+    constructor(props) {
+        super(props);
     }
+
+	render() {
+		const {
+			loading,
+			dataSource,
+			link,
+			items,
+			current,
+			total,
+			columns,
+			onSubmit,
+			pagination,
+			bordered,
+			linkName,
+			scroll,
+			onClick,
+			onReset,
+			rowSelection
+        } = this.props;
+        
+		return(
+			<Card bordered='false'>
+
+                {
+                    onSubmit && items ? <Search items={items} loading={loading} onSubmit={onSubmit} onReset={onReset}/> :
+                    <Fragment/>
+                }
+
+                {
+                    link || onClick ? <Buttons style={onSubmit ? styles.newBtn : ''}
+                    type="primary"
+                    onClick={onClick}
+                    name={linkName ? linkName : "+ 新建"}
+                    link={link}/> : <Fragment/>
+                }
+
+                <Table loading={loading}
+                    columns={columns}
+                    dataSource={dataSource}
+                    size="middle"
+                    className={styles.businessTable}
+                    rowSelection={rowSelection ? rowSelection : null}
+                    scroll={{x: scroll ? scroll : 800}}
+                    pagination={false}
+                />
+
+                {
+                    current ? <Row type="flex" justify="end" className={styles.paginationBox}>
+                        <Pagination showQuickJumper onChange={pagination} current={current} total={total}/>
+                    </Row> : <Fragment/>
+                }
+            </Card>
+		)
+	}
 }
 export default Tables

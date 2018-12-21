@@ -27,6 +27,9 @@ class Login extends Component{
                     type:'user/login',
                     payload:values
                 })
+                await this.props.dispatch({
+                    type:'user/licenseVerify'
+                })
                 router.push('/home');
             }
         });

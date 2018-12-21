@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Popconfirm, message } from 'antd';
+import { Icon, Popconfirm } from 'antd';
 import { delCookie, getCookie } from '@/utils/cookie';
 import { logout } from '@/services/api';
 import router from 'umi/router';
@@ -9,12 +9,12 @@ class HeadRight extends Component{
     state = {
         userName:''
     }
-    componentWillMount() {
+    componentDidMount() {
         this.getUserName()
     }
 
     quit() {
-        logout('/dam/logout.do').then((result) => {
+        logout().then((result) => {
             router.push('/login');
             delCookie('crsf_token')
         })

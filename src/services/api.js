@@ -17,3 +17,8 @@ export async function licenseVerify() {
  export async function logout() {
     return request('/dam/logout.do')
  }
+
+/* 退出登录 */
+export async function getVolumeList() {
+    return request('/taskRun/taskRunList.do')
+ }
