@@ -4,13 +4,13 @@ export const registrationB = [{
     acton:'add',
     type:'primary'
   }, {
-    text: '新增',
+    text: '删除',
     icon: 'download',
-    acton:'add',
+    acton:'del',
     type:'primary'
   }, {
-    text: '新增',
+    text: '下载',
     icon: 'download',
-    acton:'add',
+    acton:'download',
     type:'primary'
   }];

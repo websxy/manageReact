@@ -5,8 +5,8 @@ class Buttons extends Component{
         super(props);
     }
 
-    btnClick = () => {
-       this.props.action
+    btnClick = action => {
+        action()
     }
 
     render() {
@@ -19,7 +19,7 @@ class Buttons extends Component{
                                 key={index} 
                                 type={item.type}
                                 style={{marginRight:'10px'}}
-                                onClick={this.btnClick}
+                                onClick={item.action}
                                 icon={item.icon}> {item.text}
                             </Button>
                        ) 
