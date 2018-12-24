@@ -21,7 +21,7 @@ class Tables extends Component {
 			onSubmit,
 			pagination,
 			bordered,
-			linkName,
+			btns,
 			scroll,
 			onClick,
 			onReset,
@@ -31,19 +31,18 @@ class Tables extends Component {
 		return(
 			<Card bordered='false'>
 
+                {/* 搜索组件 */}
                 {
                     onSubmit && items ? <Search items={items} loading={loading} onSubmit={onSubmit} onReset={onReset}/> :
                     <Fragment/>
                 }
 
+                 {/* 按钮组件 */}
                 {
-                    link || onClick ? <Buttons style={onSubmit ? styles.newBtn : ''}
-                    type="primary"
-                    onClick={onClick}
-                    name={linkName ? linkName : "+ 新建"}
-                    link={link}/> : <Fragment/>
+                   btns ? <Buttons btns={btns}/> : <Fragment/>
                 }
 
+                {/* 表格组件 */}
                 <Table loading={loading}
                     columns={columns}
                     dataSource={dataSource}
@@ -54,6 +53,7 @@ class Tables extends Component {
                     pagination={false}
                 />
 
+                 {/* 分页组件 */}
                 {
                     current ? <Row type="flex" justify="end" className={styles.paginationBox}>
                         <Pagination showQuickJumper onChange={pagination} current={current} total={total}/>

@@ -1,36 +1,27 @@
 import React, { Component } from 'react';
-import { Button, Icon} from 'antd';
-
-const registrationB = [{
-    title: '新增',
-    icon: 'download',
-    acton:'add',
-    type:'primary'
-  }, {
-    title: '新增',
-    icon: 'download',
-    acton:'add',
-    type:'primary'
-  }, {
-    title: '新增',
-    icon: 'download',
-    acton:'add',
-    type:'primary'
-  }];
-
-
-class Bottons extends Component{
+import { Button } from 'antd';
+class Buttons extends Component{
     constructor(props){
         super(props);
+    }
+
+    btnClick = () => {
+       this.props.action
     }
 
     render() {
         return(
             <>
                 {
-                    registrationB.map((item,index)=>{
+                    this.props.btns.map((item,index)=>{
                        return(
-                            <Button key={index} type={item.type} icon={item.icon}>{item.title}</Button>
+                            <Button 
+                                key={index} 
+                                type={item.type}
+                                style={{marginRight:'10px'}}
+                                onClick={this.btnClick}
+                                icon={item.icon}> {item.text}
+                            </Button>
                        ) 
                     })
                 }
@@ -39,4 +30,4 @@ class Bottons extends Component{
     }
 }
 
-export default Bottons
+export default Buttons

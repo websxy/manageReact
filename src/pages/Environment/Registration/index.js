@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import Tables from '@/components/Tables';
-import Buttons from '@/components/Buttons';
 import { registrationC } from '@/uiConfig/thead/TabSource'
 import { registrationS } from '@/uiConfig/searchs'
 import { registrationB } from '@/uiConfig/buttons'
@@ -22,6 +21,10 @@ class Registration extends Component{
         console.log(pageNumber);
     }
 
+    add = () =>{
+        alert('新增')
+    }
+
     componentDidMount(){
         getVolumeList().then(result=>{
             // console.log(result)
@@ -29,14 +32,14 @@ class Registration extends Component{
     }
     render(){
         return (
-            <Buttons/>
-            // <Tables 
-            //     items={registrationS}
-            //     columns={registrationC}
-            //     pagination={this.pagination}
-            //     onReset={this.onReset}
-            //     onSubmit={this.onSubmit}
-            // />
+            <Tables 
+                items={registrationS}
+                columns={registrationC}
+                btns={registrationB}
+                pagination={this.pagination}
+                onReset={this.onReset}
+                onSubmit={this.onSubmit}
+            />
         )
     }
 }
