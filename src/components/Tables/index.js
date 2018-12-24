@@ -23,13 +23,12 @@ class Tables extends Component {
 			bordered,
 			btns,
 			scroll,
-			onClick,
 			onReset,
 			rowSelection
         } = this.props;
         
 		return(
-			<Card bordered='false'>
+			<Card bordered={bordered}>
 
                 {/* 搜索组件 */}
                 {

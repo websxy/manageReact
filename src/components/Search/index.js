@@ -60,7 +60,7 @@ class Search extends Component {
             if (_type === 'Input') {
                 _rulesType = 'string';
             } else if (_type === 'DatePicker') {
-                _rulesType = 'array';
+                _rulesType = 'object';
             }
             if (value.typeDiff) {
                 _rulesType = 'string';
@@ -98,7 +98,7 @@ class Search extends Component {
         const _this = this;
         switch (which) {
             case 'Input':
-                return <Input placeholder={placeholder}/>
+                return <Input placeholder={placeholder} onChange={this.handleSubmit}/>
             case 'Select':
                 return <Select placeholder={placeholder}>{_this.getOption(options)}</Select>
             case 'DatePicker':
@@ -135,16 +135,16 @@ class Search extends Component {
         const {items, form, loading} = this.props;
         const {getFieldDecorator} = form;
         return(
-            <Form onSubmit={this.handleSubmit} layout="horizontal">
+            <Form layout="horizontal">
                 { this.getChildren(items, getFieldDecorator) }
-                <Row type="flex" justify="end">
+                {/* <Row type="flex" justify="end">
                     <Col>
                         <FormItem>
                             <Button type="default" htmlType="button" style={{marginRight: '10px'}} onClick={this.handleReset}>重置</Button>
                             <Button loading={loading} type="primary" htmlType="submit">查询</Button>
                         </FormItem>
                     </Col>
-                </Row>
+                </Row> */}
                 { this.props.children}
             </Form>
         )

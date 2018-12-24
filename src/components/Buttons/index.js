@@ -5,10 +5,6 @@ class Buttons extends Component{
         super(props);
     }
 
-    btnClick = action => {
-        action()
-    }
-
     render() {
         return(
             <>
