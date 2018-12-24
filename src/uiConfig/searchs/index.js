@@ -10,7 +10,7 @@ export const registrationS = [{
     required: false,
     placeholder: '请选择',
     parameter: 'subject',
-    options: []
+    options: [{value:1,text:'1111111'},{value:2,text:'222222222222222'}]
     
   }, {
     type: 'DatePicker',

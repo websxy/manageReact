@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Form, Row, Col, Input, Select, Button, DatePicker } from 'antd';
+import locale from 'antd/lib/date-picker/locale/zh_CN';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -51,7 +52,7 @@ class Search extends Component {
                 _options = value.options;
             }else {
                 if (_type === 'DatePicker') {
-                  //
+                    _type = 'DatePicker';
                 } else {
                   _type = 'Input';
                 }
@@ -61,8 +62,7 @@ class Search extends Component {
                 _rulesType = 'string';
             } else if (_type === 'DatePicker') {
                 _rulesType = 'object';
-            }
-            if (value.typeDiff) {
+            } else if (_type === 'Select') {
                 _rulesType = 'string';
             }
             const formItemLayout = {
@@ -100,9 +100,9 @@ class Search extends Component {
             case 'Input':
                 return <Input placeholder={placeholder} onChange={this.handleSubmit}/>
             case 'Select':
-                return <Select placeholder={placeholder}>{_this.getOption(options)}</Select>
+                return <Select placeholder={placeholder} onChange={this.handleSubmit}>{_this.getOption(options)}</Select>
             case 'DatePicker':
-                return <DatePicker placeholder={placeholder}/>
+                return <DatePicker placeholder={placeholder} onChange={this.handleSubmit} locale={locale}/>
             default:
                 break
         }
@@ -112,7 +112,7 @@ class Search extends Component {
             return;
         }
         return data.map((value, index) => {
-            return <Option key={index} value={value.key}>{value.value}</Option>
+            return <Option key={value.value} value={value.text}>{value.text}</Option>
         })
     }
 
@@ -126,7 +126,6 @@ class Search extends Component {
 
     //提交
     handleSubmit = (e) => {
-        e.preventDefault();
         this.props.form.validateFields((err, fieldsValue) => {
             this.props.onSubmit(err, fieldsValue);
         });
@@ -135,16 +134,16 @@ class Search extends Component {
         const {items, form, loading} = this.props;
         const {getFieldDecorator} = form;
         return(
-            <Form layout="horizontal">
+            <Form layout="horizontal" onSubmit={this.handleSubmit}>
                 { this.getChildren(items, getFieldDecorator) }
-                {/* <Row type="flex" justify="end">
+                <Row type="flex" justify="end">
                     <Col>
                         <FormItem>
                             <Button type="default" htmlType="button" style={{marginRight: '10px'}} onClick={this.handleReset}>重置</Button>
                             <Button loading={loading} type="primary" htmlType="submit">查询</Button>
                         </FormItem>
                     </Col>
-                </Row> */}
+                </Row>
                 { this.props.children}
             </Form>
         )

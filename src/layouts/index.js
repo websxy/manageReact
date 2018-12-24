@@ -1,4 +1,7 @@
 import styles from './index.css';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
 
 function BasicLayout(props) {
   console.log(props)
